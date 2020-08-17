@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="8">
+      <module name="kd.bos.service.node-debug-mservice.main" target="1.8" />
+      <module name="kd.bos.service.node-debug-mservice.test" target="1.8" />
+      <module name="kd.bos.service.OnePos.main" target="1.8" />
+      <module name="kd.bos.service.OnePos.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

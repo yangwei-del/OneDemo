@@ -1,0 +1,107 @@
+plugins {
+    id 'java'
+}
+
+
+//1.1 apply plugin：'java' 表示应用java插件添加对java的支持
+//
+//1.2 apply plngin:'war'表示应用的war插件
+sourceCompatibility=1.8
+group = 'kd.bos.service'
+version = '1.0'
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+//1.5 sourceCompatibility和targetCompatibility
+//
+//    sourceCompatibility:指定编译.java文件的jdk版本
+//
+//    targetCompatibility：确保.class文件与targetCompatibility
+//    所指定版本或者更新版本的java虚拟机兼容
+
+//repositories 为指定第三方依赖包仓库的地址，
+repositories {
+    mavenCentral()
+}
+
+// dependencies是用于声明这个项目依赖于哪些jar
+dependencies {
+    testCompileOnly group: 'junit', name: 'junit', version: '4.12'
+}
+
+def trd= '../../../../mservice-cosmic/lib/trd'
+def bos= '../../../../mservice-cosmic/lib/bos'
+def biz= '../../../../mservice-cosmic/lib/biz'
+// C:\nextcloudlib\node-debug-mservice\bin
+//def biz = 'F:/debug/bos-dev-env/mservice-cosmic/lib/biz'
+//def trd = 'F:/debug/bos-dev-env/mservice-cosmic/lib/trd'
+//def bos = 'F:/debug/bos-dev-env/mservice-cosmic/lib/bos'
+
+
+//测试编译阶段我们依赖junit的jar。其中包括complile（编译时）
+//    runtime（运行时）testCompile（测试编译时）testRuntime（测试运行时）
+dependencies {
+    compileOnly fileTree(dir: bos, includes: ['*.jar'])
+    compileOnly fileTree(dir: trd, includes: ['*.jar'])
+    compileOnly fileTree(dir: biz, includes: ['*.jar'])
+}
+
+
+//在需要依赖的模块上面的build.gradle文件内
+//，查找到dependencies{}模块。添加以下代码：
+//1
+//2
+//compile project(':名称')
+//1
+//在冒号后面输入模块的名称
+
+
+//2.在网络查看Gradle存储库
+//在哪里查找信息groupId，artifactId和版本？
+//
+//可以去网站： http://mvnrepository.com ，在首页搜索common-lang3
+//，然后点击需要的版本号，例如点击3.9，就会出现相对应的信息
+//1
+//2
+//3
+//4
+//Gradle命令介绍
+//gradle projects 查看工程信息
+//
+//gradle tasks 查看任务信息
+//
+//gradle task name 执行task任务
+//1
+//2
+//3
+//4
+//5
+//Gradle 工作流程
+//以multi-project build为例，Gradle工作流程如下：
+//
+//初始化阶段：
+//首先解析settings.gradle
+//1
+//Configration阶段：
+//解析每个Project中的build.gradle，解析过程中并不会执行各个build.gradle中的task。
+//
+//经过Configration阶段，Project之间及内部Task
+//之间的关系就确定了。一个 Project 包含很多 Task，
+//每个 Task 之间有依赖关系。Configuration
+//会建立一个有向图来描述 Task 之间的依赖关系,
+//所有Project配置完成后，会有一个回调project
+//.afterEvaluate，表示所有的模块都已经配置完了。
+//1
+//2
+//3
+//4
+//5
+//6
+//7
+//8
+//执行Task任务
+//————————————————
+//版权声明：本文为CSDN博主「cjhxydream」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+//原文链接：https://blog.csdn.net/cjhxydream/article/details/90632168
