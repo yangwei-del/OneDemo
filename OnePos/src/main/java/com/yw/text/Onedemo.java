@@ -17,6 +17,4 @@ public class Onedemo extends AbstractBillPlugIn {
             this.getView().showMessage("save");
     }
 
-
-
 }
