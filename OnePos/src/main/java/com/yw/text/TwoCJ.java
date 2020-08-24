@@ -38,6 +38,4 @@ public class TwoCJ extends AbstractFormPlugin  implements ClickListener {
                 this.getView().showMessage("1111111111111111111");
             }
     }
-
-
 }
