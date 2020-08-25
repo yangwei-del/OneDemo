@@ -4,7 +4,6 @@ import kd.bos.dataentity.entity.DynamicObject;
 import kd.bos.servicehelper.BusinessDataServiceHelper;
 import kd.bos.servicehelper.operation.SaveServiceHelper;
 import kd.bos.workflow.api.AgentExecution;
-
 import kd.bos.workflow.component.approvalrecord.IApprovalRecordItem;
 import kd.bos.workflow.design.plugin.IWorkflowDesigner;
 import kd.bos.workflow.design.plugin.WorkflowAuditPointPlugin;
@@ -59,7 +58,5 @@ public class PersonApplyWorkflow  implements IWorkflowPlugin {
     public String parseBillSubject(AgentExecution execution, String lang) {
         return null;
     }
-
-
 
 }

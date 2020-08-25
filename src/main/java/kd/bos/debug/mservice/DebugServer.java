@@ -5,8 +5,7 @@ import kd.bos.service.webserver.JettyServer;
 
 public class DebugServer {
 
-	public static void main(String[] args) throws Exception 
-	{
+	public static void main(String[] args) throws Exception{
 		System.setProperty(ConfigUtils.APP_NAME_KEY, "mservice-biz1.5-cosmic");
 
 		//设置集群环境名称和配置服务器地址
@@ -14,6 +13,7 @@ public class DebugServer {
 		System.setProperty(ConfigUtils.CONFIG_URL_KEY, "127.0.0.1:2181");
 	    System.setProperty("configAppName", "mservice,web");
 	    System.setProperty("webmserviceinone", "true");
+
 
 		System.setProperty("file.encoding", "utf-8");
 	    System.setProperty("xdb.enable", "false");
