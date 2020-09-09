@@ -14,7 +14,6 @@ public class DebugServer {
 	    System.setProperty("configAppName", "mservice,web");
 	    System.setProperty("webmserviceinone", "true");
 
-
 		System.setProperty("file.encoding", "utf-8");
 	    System.setProperty("xdb.enable", "false");
 		
@@ -46,7 +45,6 @@ public class DebugServer {
 	    System.setProperty("bos.app.special.deployalone.ids","");
 		System.setProperty("mc.server.url","http://127.0.0.1:8090/");
 		JettyServer.main(null);
-
 	}
 
 }
