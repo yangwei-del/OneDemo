@@ -10,6 +10,7 @@ import kd.bos.mvc.list.ListView;
 import kd.fi.bcm.formplugin.AbstractBaseListPlugin;
 
 public class FenPeiZuZhi extends AbstractBaseListPlugin {
+    //弹出组织列表,点击分配
     @Override
     public void itemClick(ItemClickEvent evt) {
         super.itemClick(evt);

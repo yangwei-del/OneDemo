@@ -75,11 +75,6 @@ public class XiaoDuJiLu extends AbstractBillPlugIn implements UploadListener, Be
         image.setUrl(dynamicObject.getString("picturefield"));
         image.setTips("hello");
         DynamicObjectCollection dynamicObjectCollection= this.getModel().getEntryEntity("kded_entryentity");
-        for (int i = 0; i < dynamicObjectCollection.size(); i++) {
-            if(StringUtil.equals(dynamicObjectCollection.get(i).getString("kded_billstatusfield"),"B")){
-                this.setColor(dynamicObjectCollection.get(i).getInt("seq")-1);
-            }
-        }
         DynamicObject dinisfectProgram=(DynamicObject) this.getModel().getValue("kded_basedatafield");
         if(dinisfectProgram==null){
             return;
@@ -118,19 +113,6 @@ public class XiaoDuJiLu extends AbstractBillPlugIn implements UploadListener, Be
         // do nothing
     }
 
-    @Override
-    public void afterUpload(UploadEvent evt) {
-        List<String> fileUrls = new ArrayList<>();
-
-        // 从事件的传入参数中，读取已上传到文件服务器的文件地址(相对地址，未包括文件服务器站点地址)
-        for(Object url : evt.getUrls()){
-            fileUrls.add((String) ((Map<String,Object>)url).get("url"));
-        }
-        // 从文件服务器中，读取已上传的XLS文件
-        for(String fileUrl : fileUrls){
-
-        }
-    }
 
     @Override
     public void beforeF7Select(BeforeF7SelectEvent e) {
@@ -169,36 +151,6 @@ public class XiaoDuJiLu extends AbstractBillPlugIn implements UploadListener, Be
         if(StringUtil.equals(fieldkey,"kded_basedatafield")){
             this.getView().updateView();
 
-
-        }
-    }
-    public void setColor(int j){
-        EntryGrid entryGrid= this.getView().getControl("kded_entryentity");
-        List<CellStyle> cellStyles=new ArrayList<>();
-        CellStyle cellStyle=new CellStyle();
-        cellStyle.setRow(j);
-        cellStyle.setBackColor("red");
-        cellStyle.setFieldKey("kded_billstatusfield");
-        cellStyles.add(cellStyle);
-        entryGrid.setCellStyle(cellStyles);
-        entryGrid.getControls();
-    }
-
-    @Override
-    public void afterDoOperation(AfterDoOperationEventArgs e) {
-        super.afterDoOperation(e);
-        String operkey=e.getOperateKey();
-        if(StringUtil.equals("save",operkey)){
-            Boolean result= e.getOperationResult().isSuccess();
-            if(!result){
-                return;
-            }
-            DynamicObjectCollection dynamicObjectCollection= this.getModel().getEntryEntity("kded_entryentity");
-            for (int i = 0; i < dynamicObjectCollection.size(); i++) {
-                if(StringUtil.equals(dynamicObjectCollection.get(i).getString("kded_billstatusfield"),"B")){
-                    this.setColor(dynamicObjectCollection.get(i).getInt("seq")-1);
-                }
-            }
 
         }
     }
