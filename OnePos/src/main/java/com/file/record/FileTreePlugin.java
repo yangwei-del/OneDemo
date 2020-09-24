@@ -40,6 +40,7 @@ public class FileTreePlugin extends AbstractTreePlugin {
             CloseCallBack closeCallBack=new CloseCallBack(this,"addnewID");
             formShowParameter.setCloseCallBack(closeCallBack);
             this.getView().showForm(formShowParameter);
+            this.getView().showSuccessNotification("新增成功");
             this.getView().updateView();
         }else if(StringUtil.equals(operKey, "baritemap")) {
             BaseShowParameter formShowParameter = fileCollection.formShowParameter();
@@ -47,10 +48,12 @@ public class FileTreePlugin extends AbstractTreePlugin {
             formShowParameter.setCustomParam("myId",focusNodeId);
             CloseCallBack closeCallBack=new CloseCallBack(this,"updateID");
             formShowParameter.setCloseCallBack(closeCallBack);
+            this.getView().showSuccessNotification("修改成功");
             this.getView().showForm(formShowParameter);
         }else if(StringUtil.equals(operKey, "baritemap3")){
             DeleteServiceHelper.delete("bhr_jiedianliebiao",new QFilter[]{QFilter.of("number = ? or code = ?",focusNodeId,focusNodeId)});
             treeView.deleteNode(focusNodeId);
+            this.getView().showSuccessNotification("删除成功");
 //            treeView.deleteNode();
         }
     }

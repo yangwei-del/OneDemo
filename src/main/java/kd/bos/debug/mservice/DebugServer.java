@@ -11,11 +11,11 @@ public class DebugServer {
 		//设置集群环境名称和配置服务器地址
 		System.setProperty(ConfigUtils.CLUSTER_NAME_KEY, "cosmic");
 		System.setProperty(ConfigUtils.CONFIG_URL_KEY, "127.0.0.1:2181");
-	    System.setProperty("configAppName", "mservice,web");
-	    System.setProperty("webmserviceinone", "true");
+		System.setProperty("configAppName", "mservice,web");
+		System.setProperty("webmserviceinone", "true");
 
 		System.setProperty("file.encoding", "utf-8");
-	    System.setProperty("xdb.enable", "false");
+		System.setProperty("xdb.enable", "false");
 		
 		System.setProperty("mq.consumer.register", "true");
 	    System.setProperty("MONITOR_HTTP_PORT", "9998");
@@ -29,9 +29,7 @@ public class DebugServer {
 	    System.setProperty("appSplit", "false");
 
 	    System.setProperty("lightweightdeploy","true");
-		
 		System.setProperty("db.sql.out", "false");
-
 		System.setProperty("JETTY_WEB_PORT","8080");
 		System.setProperty("JETTY_WEBAPP_PATH", "../../../mservice-cosmic/webapp");
 		System.setProperty("JETTY_WEBRES_PATH", "../../../static-file-service");

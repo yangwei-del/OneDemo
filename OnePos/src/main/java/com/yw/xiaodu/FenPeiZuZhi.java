@@ -1,4 +1,4 @@
-package com.sizhuan.dinisfect.basematerial;
+package com.yw.xiaodu;
 
 import dm.jdbc.util.StringUtil;
 import kd.bos.entity.datamodel.ListSelectedRow;
@@ -9,11 +9,7 @@ import kd.bos.form.control.events.ItemClickEvent;
 import kd.bos.mvc.list.ListView;
 import kd.fi.bcm.formplugin.AbstractBaseListPlugin;
 
-/**
- * @author zenghuogang
- * @create 2020/8/20
- */
-public class DisinfectProgrammmonList extends AbstractBaseListPlugin {
+public class FenPeiZuZhi extends AbstractBaseListPlugin {
     @Override
     public void itemClick(ItemClickEvent evt) {
         super.itemClick(evt);
@@ -26,18 +22,14 @@ public class DisinfectProgrammmonList extends AbstractBaseListPlugin {
                 return;
             }
             FormShowParameter formShowParameter=new FormShowParameter();
-            formShowParameter.setFormId("kded_select_box");
+            formShowParameter.setFormId("kded_tanchukuang");
             formShowParameter.getOpenStyle().setShowType(ShowType.Modal);
             StyleCss styleCss=new StyleCss();
             styleCss.setWidth("800px");
             styleCss.setHeight("600px");
-            formShowParameter.setCustomParam("DPId",pkvalue);
+            formShowParameter.setCustomParam("YWID",pkvalue);
             formShowParameter.getOpenStyle().setInlineStyleCss(styleCss);
             this.getView().showForm(formShowParameter);
         }
-
-
     }
-
-
 }

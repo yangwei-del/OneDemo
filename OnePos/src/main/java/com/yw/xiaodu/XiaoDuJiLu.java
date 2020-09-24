@@ -1,4 +1,4 @@
-package com.sizhuan.dinisfect.bill;
+package com.yw.xiaodu;
 
 import com.alibaba.fastjson.JSONObject;
 import dm.jdbc.util.StringUtil;
@@ -33,7 +33,7 @@ import java.util.*;
  * @create 2020/8/20
  * 消毒记录单
  */
-public class DinisfectRecordBill extends AbstractBillPlugIn implements UploadListener, BeforeF7SelectListener {
+public class XiaoDuJiLu extends AbstractBillPlugIn implements UploadListener, BeforeF7SelectListener {
     @Override
     public void registerListener(EventObject e) {
         super.registerListener(e);
@@ -41,6 +41,15 @@ public class DinisfectRecordBill extends AbstractBillPlugIn implements UploadLis
         toolbar.addUploadListener(this);
         BasedataEdit basematerial = getView().getControl("kded_basedatafield");
         basematerial.addBeforeF7SelectListener(this);
+    }
+
+
+
+    @Override
+    public void itemClick(ItemClickEvent evt) {
+        super.itemClick(evt);
+        this.getModel().getEntryEntity("kded_entryentity");
+
     }
 
     @Override
@@ -65,16 +74,12 @@ public class DinisfectRecordBill extends AbstractBillPlugIn implements UploadLis
         Image image = this.getView().getControl("kded_imageap");
         image.setUrl(dynamicObject.getString("picturefield"));
         image.setTips("hello");
-
         DynamicObjectCollection dynamicObjectCollection= this.getModel().getEntryEntity("kded_entryentity");
-
-
         for (int i = 0; i < dynamicObjectCollection.size(); i++) {
             if(StringUtil.equals(dynamicObjectCollection.get(i).getString("kded_billstatusfield"),"B")){
                 this.setColor(dynamicObjectCollection.get(i).getInt("seq")-1);
             }
         }
-
         DynamicObject dinisfectProgram=(DynamicObject) this.getModel().getValue("kded_basedatafield");
         if(dinisfectProgram==null){
             return;
@@ -121,23 +126,10 @@ public class DinisfectRecordBill extends AbstractBillPlugIn implements UploadLis
         for(Object url : evt.getUrls()){
             fileUrls.add((String) ((Map<String,Object>)url).get("url"));
         }
-
         // 从文件服务器中，读取已上传的XLS文件
         for(String fileUrl : fileUrls){
 
         }
-    }
-
-    @Override
-    public void remove(UploadEvent evt) {
-        System.out.println(evt.getUrls());
-        // do nothing
-    }
-
-    @Override
-    public void afterRemove(UploadEvent evt) {
-        System.out.println(evt.getUrls());
-        // do nothing
     }
 
     @Override
@@ -148,7 +140,7 @@ public class DinisfectRecordBill extends AbstractBillPlugIn implements UploadLis
             return;
         }
         String workshopId=workshop.getString("id");
-        DynamicObject[] dinisfectProgramm= BusinessDataServiceHelper.load("kded_disinfect_progrom","id,kded_orgentryentity,kded_orgentryentity.kded_kded_orgfield,kded_orgentryentity.kded_kded_orgfield",new QFilter[]{});
+        DynamicObject[] dinisfectProgramm= BusinessDataServiceHelper.load("kded_xiaodufangan","id,kded_orgentryentity,kded_orgentryentity.kded_kded_orgfield,kded_orgentryentity.kded_kded_orgfield",new QFilter[]{});
         List<Long> ids=new ArrayList<>();
         for (int i = 0; i <dinisfectProgramm.length ; i++) {
             DynamicObject dynamicObject=dinisfectProgramm[i];
@@ -185,7 +177,7 @@ public class DinisfectRecordBill extends AbstractBillPlugIn implements UploadLis
         List<CellStyle> cellStyles=new ArrayList<>();
         CellStyle cellStyle=new CellStyle();
         cellStyle.setRow(j);
-        cellStyle.setBackColor("green");
+        cellStyle.setBackColor("red");
         cellStyle.setFieldKey("kded_billstatusfield");
         cellStyles.add(cellStyle);
         entryGrid.setCellStyle(cellStyles);
@@ -211,11 +203,4 @@ public class DinisfectRecordBill extends AbstractBillPlugIn implements UploadLis
         }
     }
 
-
-    @Override
-    public void itemClick(ItemClickEvent evt) {
-        super.itemClick(evt);
-        this.getModel().getEntryEntity("kded_entryentity");
-
-    }
 }

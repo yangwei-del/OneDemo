@@ -1,4 +1,4 @@
-package com.sizhuan.dinisfect.dynamictable;
+package com.yw.xiaodu;
 
 import dm.jdbc.util.StringUtil;
 import kd.bos.dataentity.entity.DynamicObject;
@@ -22,42 +22,11 @@ import java.util.EventObject;
  * @author zenghuogang
  * @create 2020/8/20
  */
-public class ShowSeletBox extends AbstractFormPlugin {
+public class XuanZeKuang extends AbstractFormPlugin {
 
     @Override
     public void afterBindData(EventObject e) {
         super.afterBindData(e);
-//        DynamicObjectCollection dynamicObjectCollection= this.getModel().getEntryEntity("kded_entryentity");
-//        DynamicObject dynamicObject=dynamicObjectCollection.addNew();
-//        dynamicObject.set("kded_textfield","213124");
-//        dynamicObject.set("kded_textfield1","name");
-//        dynamicObject.set("kded_textfield2","hhh");
-//        dynamicObjectCollection.add(dynamicObject);
-    }
-
-    @Override
-    public void afterCreateNewData(EventObject e) {
-        DynamicObjectCollection dynamicObjectCollection= this.getModel().getEntryEntity("kded_entryentity");
-
-        Long id = UserServiceHelper.getCurrentUserId();
-
-        QFilter filter = QFilter.of("id = ? and entryentity.ispartjob = ?", id, false);
-
-        DynamicObject user = QueryServiceHelper.queryOne("bos_user", "id, phone, entryentity.dpt", filter.toArray());
-
-        Long dptId = user.getLong("entryentity.dpt");
-        //公司
-        String companyid = isCompany(String.valueOf(dptId));
-
-        DynamicObject[] dynamicObjects=BusinessDataServiceHelper.load("bos_org_structure","id,number,name,org",new QFilter[]{new QFilter("parent",QCP.equals,companyid)});
-        for (int i = 0; i <dynamicObjects.length ; i++) {
-            DynamicObject dynamicObject=dynamicObjectCollection.addNew();
-            DynamicObject orgDynamic=dynamicObjects[i].getDynamicObject("org");
-            dynamicObject.set("kded_textfield",orgDynamic.get("id"));
-            dynamicObject.set("kded_textfield1",orgDynamic.get("number"));
-            dynamicObject.set("kded_textfield2",orgDynamic.get("name"));
-        }
-
     }
 
     @Override
@@ -66,33 +35,6 @@ public class ShowSeletBox extends AbstractFormPlugin {
         this.addItemClickListeners("kded_toolbarap");
     }
 
-    @Override
-    public void itemClick(ItemClickEvent evt) {
-        super.itemClick(evt);
-        String operkey=evt.getItemKey();
-        if(StringUtil.equals(operkey,"kded_baritemap")){
-            int index= this.getModel().getEntryCurrentRowIndex("kded_entryentity");
-            DynamicObject dynamicObject= this.getModel().getEntryEntity("kded_entryentity").get(index);
-
-            String pkvalue= this.getView().getFormShowParameter().getCustomParam("DPId");
-
-            DynamicObject dpDynamic=BusinessDataServiceHelper.loadSingle(pkvalue,"kded_disinfect_progrom");
-            DynamicObjectCollection dynamicObjectCollection=dpDynamic.getDynamicObjectCollection("kded_orgentryentity");
-            for (int i = 0; i <dynamicObjectCollection.size() ; i++) {
-                if(dynamicObjectCollection.get(i).getDynamicObject("kded_kded_orgfield").getString("id").equals(dynamicObject.get("kded_textfield"))){
-                    this.getView().showTipNotification("方案已分配到该车间");
-                    return;
-                }
-            }
-
-            DynamicObject newDynamicObjec= dynamicObjectCollection.addNew();
-            newDynamicObjec.set("kded_kded_orgfield",dynamicObject.get("kded_textfield"));
-            SaveServiceHelper.save(new DynamicObject[]{dpDynamic});
-            this.getView().showSuccessNotification("方案分配成功");
-            this.getView().close();
-        }
-
-    }
 
     /**
      * 上级公司查询
@@ -113,5 +55,53 @@ public class ShowSeletBox extends AbstractFormPlugin {
         }
 
         return null;
+    }
+
+
+    @Override
+    public void afterCreateNewData(EventObject e) {
+        DynamicObjectCollection dynamicObjectCollection= this.getModel().getEntryEntity("kded_entryentity");
+        Long id = UserServiceHelper.getCurrentUserId();
+        QFilter filter = QFilter.of("id = ? and entryentity.ispartjob = ?", id, false);
+        DynamicObject user = QueryServiceHelper.queryOne("bos_user", "id, phone, entryentity.dpt", filter.toArray());
+        Long dptId = user.getLong("entryentity.dpt");
+        //公司
+        String companyid = isCompany(String.valueOf(dptId));
+        DynamicObject[] dynamicObjects=BusinessDataServiceHelper.load("bos_org_structure","id,number,name,org",new QFilter[]{new QFilter("parent",QCP.equals,companyid)});
+        for (int i = 0; i <dynamicObjects.length ; i++) {
+            DynamicObject dynamicObject=dynamicObjectCollection.addNew();
+            DynamicObject orgDynamic=dynamicObjects[i].getDynamicObject("org");
+            dynamicObject.set("kded_textfield",orgDynamic.get("id"));
+            dynamicObject.set("kded_textfield1",orgDynamic.get("number"));
+            dynamicObject.set("kded_textfield2",orgDynamic.get("name"));
+        }
+
+    }
+
+    @Override
+    public void itemClick(ItemClickEvent evt) {
+        super.itemClick(evt);
+        String operkey=evt.getItemKey();
+        if(StringUtil.equals(operkey,"kded_baritemap")){
+            int index= this.getModel().getEntryCurrentRowIndex("kded_entryentity");
+            DynamicObject dynamicObject= this.getModel().getEntryEntity("kded_entryentity").get(index);
+
+            String pkvalue= this.getView().getFormShowParameter().getCustomParam("YWID");
+
+            DynamicObject dpDynamic=BusinessDataServiceHelper.loadSingle(pkvalue,"kded_xiaodufangan");
+            DynamicObjectCollection dynamicObjectCollection=dpDynamic.getDynamicObjectCollection("kded_orgentryentity");
+            for (int i = 0; i <dynamicObjectCollection.size() ; i++) {
+                if(dynamicObjectCollection.get(i).getDynamicObject("kded_kded_orgfield").getString("id").equals(dynamicObject.get("kded_textfield"))){
+                    this.getView().showTipNotification("方案已分配到该车间");
+                    return;
+                }
+            }
+            DynamicObject newDynamicObjec= dynamicObjectCollection.addNew();
+            newDynamicObjec.set("kded_kded_orgfield",dynamicObject.get("kded_textfield"));
+            SaveServiceHelper.save(new DynamicObject[]{dpDynamic});
+            this.getView().showSuccessNotification("方案分配成功");
+            this.getView().close();
+        }
+
     }
 }

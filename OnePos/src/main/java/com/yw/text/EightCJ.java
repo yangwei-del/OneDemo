@@ -1,28 +1,14 @@
 package com.yw.text;
 
-import kd.bos.dataentity.OperateOption;
 import kd.bos.dataentity.entity.DynamicObject;
-import kd.bos.dataentity.entity.DynamicObjectCollection;
-import kd.bos.entity.EntityType;
-import kd.bos.entity.datamodel.ListSelectedRow;
 import kd.bos.entity.datamodel.ListSelectedRowCollection;
 import kd.bos.form.control.events.ItemClickEvent;
-import kd.bos.list.BillList;
-import kd.bos.list.plugin.AbstractListPlugin;
 import kd.bos.mvc.list.ListView;
-import kd.bos.orm.ORM;
-import kd.bos.orm.query.QCP;
 import kd.bos.orm.query.QFilter;
-import kd.bos.servicehelper.BusinessDataServiceHelper;
-import kd.bos.servicehelper.QueryServiceHelper;
 import kd.bos.servicehelper.operation.DeleteServiceHelper;
 import kd.bos.servicehelper.operation.SaveServiceHelper;
 import kd.fi.bcm.formplugin.AbstractBaseListPlugin;
-
-import java.util.ArrayList;
 import java.util.EventObject;
-import java.util.HashSet;
-import java.util.List;
 
 public class EightCJ extends AbstractBaseListPlugin {
     @Override
@@ -31,6 +17,8 @@ public class EightCJ extends AbstractBaseListPlugin {
         this.addItemClickListeners( "toolbarap");
     }
 
+
+    
     //删除
     @Override
     public void itemClick(ItemClickEvent evt) {
